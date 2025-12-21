@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/sort1"
+            android:title="Sort: Default" />
+        <item
+            android:id="@+id/sort2"
+            android:title="Sort: By date" />
+        <item
+            android:id="@+id/sort3"
+            android:title="Sort: By category" />
+    </group>
+</menu>

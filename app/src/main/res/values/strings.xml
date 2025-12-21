@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Строки, используемые в mainlayout.xml -->
+    <string name="header_placeholder">Header Placeholder</string>
+    <string name="add_note_description">Add new item</string>
+    <string name="menu">Menu</string> <!-- Эта строка у вас -->
+
+    <!-- Строки для экрана добавления заметки -->
+    <string name="add_note_title">Add Note</string>
+    <string name="note_title_hint">Title</string>
+    <string name="note_content_hint">Content</string>
+    <string name="save_note">Save</string>
+</resources>
