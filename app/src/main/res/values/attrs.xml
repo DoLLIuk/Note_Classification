@@ -1,0 +1,8 @@
+<resources>
+    <attr name="mainBackgroundColor" format="color" />
+    <attr name="noteBackgroundColor" format="color" />
+    <attr name="toolbarBackgroundColor" format="color" />
+    <attr name="fabBackgroundColor" format="color" />
+    <attr name="noteTextColor" format="color" />
+    <attr name="iconTint" format="color" />
+</resources>

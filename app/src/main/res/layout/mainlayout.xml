@@ -12,20 +12,23 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/mainBackgroundColor">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main_appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?attr/toolbarBackgroundColor">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name"
-                app:navigationIcon="@android:drawable/ic_menu_more"
-                style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface" />
+                app:title="@string/toolbar_title"
+                app:navigationIcon="@drawable/ic_menu"
+                app:navigationContentDescription="@string/navigation_drawer_open"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,26 +36,15 @@
             android:id="@+id/main_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
+            android:fillViewport="false"
+            android:contentDescription="@string/notes_scroll_view_description"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/content_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_large">
-
-                <TextView
-                    android:id="@+id/placeholder_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_instruction"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                android:padding="@dimen/spacing_small">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_vertical_center"
@@ -64,14 +56,25 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <TextView
+            android:id="@+id/placeholder_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_instruction"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_gravity="center" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_fab_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
             android:contentDescription="@string/add_note_description"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:backgroundTint="?attr/fabBackgroundColor" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -8,4 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Icon Tint -->
+    <color name="icon_tint_color">#8A000000</color> <!-- 54% black -->
+
+    <!-- Light Theme -->
+    <color name="main_background_light">#F5F5F5</color>
+    <color name="note_background_light">#FFF59D</color>
+
+    <!-- Dark Theme -->
+    <color name="main_background_dark">#121212</color>
+    <color name="note_background_dark">#2C2C2C</color>
+    <color name="fab_background_dark">#00695C</color>
 </resources>

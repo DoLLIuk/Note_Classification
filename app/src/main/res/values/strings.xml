@@ -7,6 +7,8 @@
     <string name="header_placeholder">Header Placeholder</string>
     <string name="add_note_description">Add new item</string>
     <string name="menu">Menu</string> <!-- Эта строка у вас -->
+    <string name="toolbar_title">All Notes</string>
+    <string name="notes_scroll_view_description">Scrollable list of notes</string>
 
     <!-- Строки для экрана добавления заметки -->
     <string name="add_note_title">Add Note</string>
@@ -14,4 +16,7 @@
     <string name="note_content_hint">Content</string>
     <string name="save_note">Save</string>
     <string name="placeholder_instruction">Press the `+` button at the bottom right to create your first note.</string>
+
+    <!-- Theme Switch -->
+    <string name="theme_switch_title">Dark Mode</string>
 </resources>

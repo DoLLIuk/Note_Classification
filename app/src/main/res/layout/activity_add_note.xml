@@ -5,17 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/noteBackgroundColor"
     tools:context=".AddNoteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/toolbarBackgroundColor">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/add_note_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/add_note_title" />
+            app:title="@string/add_note_title"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -25,7 +28,13 @@
         android:layout_height="wrap_content"
         android:hint="@string/note_title_hint"
         android:inputType="textCapSentences"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:background="?attr/noteBackgroundColor" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <EditText
         android:id="@+id/add_note_content_input"
@@ -34,6 +43,7 @@
         android:layout_weight="1"
         android:gravity="top"
         android:hint="@string/note_content_hint"
-        android:inputType="textMultiLine|textCapSentences" />
+        android:inputType="textMultiLine|textCapSentences"
+        android:background="?attr/noteBackgroundColor" />
 
 </LinearLayout>

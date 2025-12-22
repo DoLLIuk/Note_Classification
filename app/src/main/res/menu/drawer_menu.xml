@@ -1,4 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/sort1"
@@ -10,4 +11,8 @@
             android:id="@+id/sort3"
             android:title="Sort: By category" />
     </group>
+    <item
+        android:id="@+id/theme_switch_item"
+        android:title="@string/theme_switch_title"
+        app:actionViewClass="androidx.appcompat.widget.SwitchCompat" />
 </menu>

@@ -3,13 +3,17 @@ package com.example.myapplication
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.GravityCompat
@@ -26,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fab: FloatingActionButton
     private lateinit var contentContainer: ConstraintLayout
     private lateinit var placeholderText: TextView
+    private lateinit var sharedPreferences: SharedPreferences
 
     private var lastLeftViewId: Int = ConstraintSet.PARENT_ID
     private var lastRightViewId: Int = ConstraintSet.PARENT_ID
@@ -46,6 +51,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPreferences = getSharedPreferences("theme_prefs", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false)
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         setContentView(R.layout.mainlayout)
 
         drawerLayout = findViewById(R.id.main_drawer_layout)
@@ -63,6 +77,22 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this, AddNoteActivity::class.java)
             addNoteLauncher.launch(intent)
+        }
+
+        val menu = navView.menu
+        val themeSwitchItem = menu.findItem(R.id.theme_switch_item)
+        val themeSwitch = themeSwitchItem.actionView as SwitchCompat
+
+        themeSwitch.isChecked = isDarkMode
+
+        themeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                sharedPreferences.edit().putBoolean("is_dark_mode", true).apply()
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                sharedPreferences.edit().putBoolean("is_dark_mode", false).apply()
+            }
         }
 
         navView.setNavigationItemSelectedListener { item ->
@@ -90,6 +120,7 @@ class MainActivity : AppCompatActivity() {
 
         val titleView = noteView.findViewById<TextView>(R.id.note_item_title)
         val contentView = noteView.findViewById<TextView>(R.id.note_item_content)
+        val deleteButton = noteView.findViewById<ImageButton>(R.id.note_item_delete)
 
         if (!title.isNullOrEmpty()) {
             titleView.text = title
@@ -105,6 +136,26 @@ class MainActivity : AppCompatActivity() {
             contentView.visibility = View.GONE
         }
 
+        deleteButton.setOnClickListener {
+            contentContainer.removeView(noteView)
+            // The guideline and placeholder are children, so when only they are left, count is 2
+            if (contentContainer.childCount <= 2) { 
+                placeholderText.visibility = View.VISIBLE
+                noteCounter = 0
+                lastLeftViewId = ConstraintSet.PARENT_ID
+                lastRightViewId = ConstraintSet.PARENT_ID
+            }
+        }
+
+        val spacing = resources.getDimensionPixelSize(R.dimen.spacing_small)
+        val params = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            setMargins(spacing, spacing, spacing, spacing)
+        }
+        noteView.layoutParams = params
+
         contentContainer.addView(noteView)
 
         val constraintSet = ConstraintSet()
@@ -113,14 +164,16 @@ class MainActivity : AppCompatActivity() {
         if (noteCounter % 2 == 1) { // Left column
             constraintSet.connect(noteView.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
             constraintSet.connect(noteView.id, ConstraintSet.END, R.id.guideline_vertical_center, ConstraintSet.START)
-            constraintSet.connect(noteView.id, ConstraintSet.TOP, lastLeftViewId, if (lastLeftViewId == ConstraintSet.PARENT_ID) ConstraintSet.TOP else ConstraintSet.BOTTOM, resources.getDimensionPixelSize(R.dimen.spacing_medium))
+            constraintSet.connect(noteView.id, ConstraintSet.TOP, lastLeftViewId, if (lastLeftViewId == ConstraintSet.PARENT_ID) ConstraintSet.TOP else ConstraintSet.BOTTOM, spacing)
             constraintSet.constrainWidth(noteView.id, ConstraintSet.MATCH_CONSTRAINT)
+            constraintSet.constrainHeight(noteView.id, ConstraintSet.WRAP_CONTENT)
             lastLeftViewId = noteView.id
         } else { // Right column
             constraintSet.connect(noteView.id, ConstraintSet.START, R.id.guideline_vertical_center, ConstraintSet.END)
             constraintSet.connect(noteView.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-            constraintSet.connect(noteView.id, ConstraintSet.TOP, lastRightViewId, if (lastRightViewId == ConstraintSet.PARENT_ID) ConstraintSet.TOP else ConstraintSet.BOTTOM, resources.getDimensionPixelSize(R.dimen.spacing_medium))
+            constraintSet.connect(noteView.id, ConstraintSet.TOP, lastRightViewId, if (lastRightViewId == ConstraintSet.PARENT_ID) ConstraintSet.TOP else ConstraintSet.BOTTOM, spacing)
             constraintSet.constrainWidth(noteView.id, ConstraintSet.MATCH_CONSTRAINT)
+            constraintSet.constrainHeight(noteView.id, ConstraintSet.WRAP_CONTENT)
             lastRightViewId = noteView.id
         }
 

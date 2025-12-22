@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="mainBackgroundColor">@color/main_background_dark</item>
+        <item name="noteBackgroundColor">@color/note_background_dark</item>
+        <item name="toolbarBackgroundColor">@color/fab_background_dark</item>
+        <item name="fabBackgroundColor">@color/fab_background_dark</item>
+        <item name="noteTextColor">@android:color/white</item>
+        <item name="iconTint">@color/icon_tint_color</item>
+    </style>
+</resources>
