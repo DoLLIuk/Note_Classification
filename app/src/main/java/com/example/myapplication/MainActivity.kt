@@ -25,9 +25,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: MaterialToolbar
     private lateinit var fab: FloatingActionButton
     private lateinit var contentContainer: ConstraintLayout
+    private lateinit var placeholderText: TextView
 
-    private var lastLeftViewId: Int = R.id.left_column_item2_text
-    private var lastRightViewId: Int = R.id.right_column_item2_text
+    private var lastLeftViewId: Int = ConstraintSet.PARENT_ID
+    private var lastRightViewId: Int = ConstraintSet.PARENT_ID
     private var noteCounter = 0
 
     private val addNoteLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
             val title = it.data?.getStringExtra("note_title")
             val content = it.data?.getStringExtra("note_content")
             if (!title.isNullOrEmpty() || !content.isNullOrEmpty()) {
+                if (noteCounter == 0) {
+                    placeholderText.visibility = View.GONE
+                }
                 addNoteToContainer(title, content)
             }
         }
@@ -49,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.main_toolbar)
         fab = findViewById(R.id.main_fab_add)
         contentContainer = findViewById(R.id.content_container)
+        placeholderText = findViewById(R.id.placeholder_text)
 
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {

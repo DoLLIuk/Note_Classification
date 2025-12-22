@@ -13,4 +13,5 @@
     <string name="note_title_hint">Title</string>
     <string name="note_content_hint">Content</string>
     <string name="save_note">Save</string>
+    <string name="placeholder_instruction">Press the `+` button at the bottom right to create your first note.</string>
 </resources>

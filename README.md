@@ -10,7 +10,7 @@ A simple Android application where a user can enter a note, press the `+` button
 - **Floating Action Button (FAB)**: The `+` button at the bottom right to add a new note to the UI.
 - **Two-Column Layout**: Notes are added dynamically into left and right columns.
 - **ML Foundation**: The structure is ready for the integration of a text classification model.
-
+``
 ---
 
 ## Tech Stack

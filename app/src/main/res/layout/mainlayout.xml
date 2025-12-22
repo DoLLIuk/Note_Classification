@@ -7,15 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:fitsSystemWindows="true"> <!-- Добавлено для корректного отображения тулбара под статус-баром -->
+    android:fitsSystemWindows="true">
 
-    <!-- ОСНОВНОЙ ЭКРАН С УЛУЧШЕННОЙ СТРУКТУРОЙ -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Верхняя панель приложения (AppBar) -->
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main_appbar"
             android:layout_width="match_parent"
@@ -25,13 +23,12 @@
                 android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/header_placeholder"
+                app:title="@string/app_name"
                 app:navigationIcon="@android:drawable/ic_menu_more"
                 style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Контент с возможностью прокрутки -->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/main_scroll_view"
             android:layout_width="match_parent"
@@ -39,35 +36,24 @@
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- Плоский контейнер для колонок -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/content_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_large">
 
-                <!-- Левая колонка -->
                 <TextView
-                    android:id="@+id/left_column_item1_text"
-                    android:layout_width="0dp"
+                    android:id="@+id/placeholder_text"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_medium"
-                    android:text="Left item 1"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_center"
+                    android:text="@string/placeholder_instruction"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                <TextView
-                    android:id="@+id/left_column_item2_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
-                    android:text="Left item 2"
-                    app:layout_constraintEnd_toEndOf="@id/left_column_item1_text"
-                    app:layout_constraintStart_toStartOf="@id/left_column_item1_text"
-                    app:layout_constraintTop_toBottomOf="@id/left_column_item1_text" />
-
-                <!-- Вертикальная направляющая для разделения колонок -->
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_vertical_center"
                     android:layout_width="wrap_content"
@@ -75,31 +61,9 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.5" />
 
-                <!-- Правая колонка -->
-                <TextView
-                    android:id="@+id/right_column_item1_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_medium"
-                    android:text="Right item 1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/guideline_vertical_center"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/right_column_item2_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
-                    android:text="Right item 2"
-                    app:layout_constraintEnd_toEndOf="@id/right_column_item1_text"
-                    app:layout_constraintStart_toStartOf="@id/right_column_item1_text"
-                    app:layout_constraintTop_toBottomOf="@id/right_column_item1_text" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <!-- Плавающая кнопка действия (FAB) -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_fab_add"
             android:layout_width="wrap_content"
@@ -111,7 +75,6 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!-- ВЫДВИЖНАЯ ПАНЕЛЬ НАВИГАЦИИ (ШТОРКА) -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/main_navigation_view"
         android:layout_width="wrap_content"
