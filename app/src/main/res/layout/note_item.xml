@@ -1,46 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/note_background"
-    android:padding="@dimen/spacing_small">
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:padding="@dimen/spacing_medium">
 
-    <LinearLayout
-        android:id="@+id/note_text_container"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/note_item_title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="?attr/noteTextColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/note_item_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/noteTextColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
+    <TextView
+        android:id="@+id/note_item_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:ellipsize="end"
+        android:maxLines="5"
+        android:textColor="?attr/noteTextColor"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/note_item_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_item_title"
+        app:layout_constraintVertical_bias="0" />
 
-        <TextView
-            android:id="@+id/note_item_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:textColor="?attr/noteTextColor"
-            android:textSize="14sp"
-            android:visibility="gone" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/note_item_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/category_background"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="?attr/categoryTextColor"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/note_item_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/note_text_container"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/spacing_small"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_delete"
-        app:tint="?attr/iconTint" />
+        app:tint="?attr/iconTint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

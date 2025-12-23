@@ -8,5 +8,9 @@
         <item name="fabBackgroundColor">@color/teal_200</item>
         <item name="noteTextColor">@android:color/black</item>
         <item name="iconTint">@color/icon_tint_color</item>
+        <item name="categoryBackgroundColor">@color/category_background_light</item>
+        <item name="categoryTextColor">@android:color/black</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

@@ -5,4 +5,6 @@
     <attr name="fabBackgroundColor" format="color" />
     <attr name="noteTextColor" format="color" />
     <attr name="iconTint" format="color" />
+    <attr name="categoryBackgroundColor" format="color" />
+    <attr name="categoryTextColor" format="color" />
 </resources>

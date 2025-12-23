@@ -14,9 +14,11 @@
     <!-- Light Theme -->
     <color name="main_background_light">#F5F5F5</color>
     <color name="note_background_light">#FFF59D</color>
+    <color name="category_background_light">#E0E0E0</color>
 
     <!-- Dark Theme -->
     <color name="main_background_dark">#121212</color>
     <color name="note_background_dark">#2C2C2C</color>
     <color name="fab_background_dark">#00695C</color>
+    <color name="category_background_dark">#3C3C3C</color>
 </resources>
