@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity() {
             val title = it.data?.getStringExtra("note_title")
             val content = it.data?.getStringExtra("note_content")
 
-            val noteText = "$title\n$content"
-            val category = noteClassifier.classify(noteText)
-
             lifecycleScope.launch {
+                val noteText = "$title\n$content"
+                val category = noteClassifier.classify(noteText)
+
                 if (noteId != -1) {
                     val existingNote = noteDao.getNoteById(noteId)
                     if (existingNote != null) {
@@ -83,7 +83,12 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.mainlayout)
 
+        // Initialize the NoteClassifier
         noteClassifier = NoteClassifier(this)
+        lifecycleScope.launch {
+            noteClassifier.init()
+        }
+
         noteDao = AppDatabase.getDatabase(this).noteDao()
 
         drawerLayout = findViewById(R.id.main_drawer_layout)
@@ -162,6 +167,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         loadNotes()
+    }
+
+    override fun onDestroy() {
+        // Release the resources used by the classifier
+        noteClassifier.close()
+        super.onDestroy()
     }
 
     private fun setupRecyclerView() {

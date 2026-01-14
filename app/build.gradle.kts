@@ -37,6 +37,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    aaptOptions {
+        noCompress += ".tflite"
+    }
 }
 
 dependencies {
@@ -50,11 +53,13 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
 
     // TensorFlow Lite
-    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
-    implementation("org.tensorflow:tensorflow-lite-task-text:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite:2.17.0")
 
     // Room Database
     implementation("androidx.room:room-runtime:2.8.4")
     implementation("androidx.room:room-ktx:2.8.4")
     kapt("androidx.room:room-compiler:2.8.4")
+
+    // Gson
+    implementation("com.google.code.gson:gson:2.10.1")
 }
