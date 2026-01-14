@@ -46,8 +46,29 @@ class MainActivity : AppCompatActivity() {
             val content = it.data?.getStringExtra("note_content")
 
             lifecycleScope.launch {
-                val noteText = "$title\n$content"
-                val category = noteClassifier.classify(noteText)
+                if (title.isNullOrEmpty() && content.isNullOrEmpty()) {
+                    // Skip saving if both title and content are empty
+                    return@launch
+                }
+
+                val textForClassification = if (!title.isNullOrEmpty()) {
+                    title
+                } else {
+                    val lines = content?.lines() ?: emptyList()
+                    val firstLine = lines.firstOrNull { it.isNotBlank() } ?: ""
+                    if (firstLine.length < 15) {
+                        val secondLine = lines.getOrNull(1)?.takeIf { it.isNotBlank() } ?: ""
+                        (firstLine + " " + secondLine).trim()
+                    } else {
+                        firstLine
+                    }
+                }.take(120)
+
+                val category = if (textForClassification.isNotBlank()) {
+                    noteClassifier.classify(textForClassification)
+                } else {
+                    "other"
+                }
 
                 if (noteId != -1) {
                     val existingNote = noteDao.getNoteById(noteId)
@@ -59,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                         noteDao.updateNote(existingNote)
                         loadNotes()
                     }
-                } else if (!title.isNullOrEmpty() || !content.isNullOrEmpty()) {
+                } else {
                     val newNote = Note(title = title, content = content, category = category)
                     noteDao.insertNote(newNote)
                     loadNotes()
