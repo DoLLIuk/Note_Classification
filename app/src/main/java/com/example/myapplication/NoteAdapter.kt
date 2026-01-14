@@ -1,10 +1,12 @@
 package com.example.myapplication
 
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class NoteAdapter(
@@ -57,6 +59,19 @@ class NoteAdapter(
             } else {
                 categoryView.visibility = View.GONE
             }
+
+            val categoryColor = when (note.category) {
+                "shopping" -> R.color.category_shopping
+                "finance" -> R.color.category_finance
+                "education" -> R.color.category_education
+                "tasks" -> R.color.category_tasks
+                else -> R.color.category_other
+            }
+
+            val background = categoryView.background.mutate() as GradientDrawable
+            background.setColor(ContextCompat.getColor(itemView.context, categoryColor))
+
+            itemView.setBackgroundResource(R.drawable.note_background)
 
             itemView.setOnClickListener { onNoteClicked(note) }
             deleteButton.setOnClickListener { onNoteDeleteClicked(note) }

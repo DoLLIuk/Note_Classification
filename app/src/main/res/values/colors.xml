@@ -21,4 +21,11 @@
     <color name="note_background_dark">#2C2C2C</color>
     <color name="fab_background_dark">#00695C</color>
     <color name="category_background_dark">#3C3C3C</color>
+
+    <!-- Note Categories -->
+    <color name="category_shopping">#FF0000</color>
+    <color name="category_finance">#FFFF00</color>
+    <color name="category_education">#90EE90</color>
+    <color name="category_tasks">#008000</color>
+    <color name="category_other">#E0E0E0</color>
 </resources>
