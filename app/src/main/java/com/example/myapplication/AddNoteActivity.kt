@@ -17,8 +17,8 @@ import com.google.android.material.appbar.MaterialToolbar
 
 class AddNoteActivity : AppCompatActivity() {
 
-    private lateinit var titleInput: EditText
-    private lateinit var contentInput: EditText
+    private val titleInput: EditText by lazy { findViewById(R.id.add_note_title_input) }
+    private val contentInput: EditText by lazy { findViewById(R.id.add_note_content_input) }
     private var noteId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,9 +50,6 @@ class AddNoteActivity : AppCompatActivity() {
         val toolbar = findViewById<MaterialToolbar>(R.id.add_note_toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        titleInput = findViewById(R.id.add_note_title_input)
-        contentInput = findViewById(R.id.add_note_content_input)
 
         noteId = intent.getIntExtra("note_id", -1)
         if (noteId != -1) {

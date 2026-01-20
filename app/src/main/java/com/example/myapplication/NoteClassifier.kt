@@ -9,8 +9,10 @@ import kotlinx.coroutines.withContext
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
 import java.io.FileInputStream
+import java.nio.ByteBuffer
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
+import java.security.MessageDigest
 import kotlin.math.max
 
 class NoteClassifier(private val context: Context) {
@@ -44,6 +46,9 @@ class NoteClassifier(private val context: Context) {
                 Log.d(TAG, "Assets: " + context.assets.list("")?.joinToString())
 
                 val model = loadModelFile(MODEL_FILE)
+
+                val hash = sha256OfByteBuffer(model)
+                Log.i("MODEL_HASH", "SHA256=$hash bytes=${model.capacity()}")
 
                 val options = Interpreter.Options().apply {
                     setNumThreads(max(1, Runtime.getRuntime().availableProcessors() - 1))
@@ -138,6 +143,12 @@ class NoteClassifier(private val context: Context) {
         }
 
         val ids = tokenizeToIds(text)
+
+        Log.d(TAG, "------ Classifier Input ------")
+        Log.d(TAG, "Original Text: '$text'")
+        Log.d(TAG, "Tokenized IDs: ${ids.contentToString()}")
+        Log.d(TAG, "-----------------------------")
+
         val input = arrayOf(ids)
         val output = Array(1) { FloatArray(classes.size) }
 
@@ -171,4 +182,18 @@ class NoteClassifier(private val context: Context) {
         interpreter?.close()
         interpreter = null
     }
+}
+
+fun sha256OfByteBuffer(buf: ByteBuffer): String {
+    val md = MessageDigest.getInstance("SHA-256")
+    val dup = buf.duplicate()          // не портим позицию оригинала
+    dup.rewind()
+
+    val tmp = ByteArray(1024 * 1024)
+    while (dup.hasRemaining()) {
+        val n = minOf(dup.remaining(), tmp.size)
+        dup.get(tmp, 0, n)
+        md.update(tmp, 0, n)
+    }
+    return md.digest().joinToString("") { "%02x".format(it) }
 }

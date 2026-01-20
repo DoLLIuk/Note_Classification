@@ -15,6 +15,8 @@ class NoteAdapter(
     private val onNoteDeleteClicked: (Note) -> Unit
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
+    private val allNotes = mutableListOf<Note>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
         return NoteViewHolder(view)
@@ -27,8 +29,21 @@ class NoteAdapter(
     override fun getItemCount() = notes.size
 
     fun updateNotes(newNotes: List<Note>) {
+        allNotes.clear()
+        allNotes.addAll(newNotes)
         notes.clear()
         notes.addAll(newNotes)
+        notifyDataSetChanged()
+    }
+
+    fun filterByCategory(category: String?) {
+        val filteredNotes = if (category == null || category == "All") {
+            allNotes
+        } else {
+            allNotes.filter { it.category == category }
+        }
+        notes.clear()
+        notes.addAll(filteredNotes)
         notifyDataSetChanged()
     }
 

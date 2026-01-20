@@ -1,18 +1,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group android:checkableBehavior="single">
+
+    <group
+        android:id="@+id/category_filter_group"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/sort1"
-            android:title="Sort: Default" />
+            android:id="@+id/nav_all"
+            android:title="All"
+            android:checked="true" />
         <item
-            android:id="@+id/sort2"
-            android:title="Sort: By date" />
+            android:id="@+id/nav_education"
+            android:title="Sort: education" />
         <item
-            android:id="@+id/sort3"
-            android:title="Sort: By category" />
+            android:id="@+id/nav_finance"
+            android:title="Sort: finance" />
+        <item
+            android:id="@+id/nav_other"
+            android:title="Sort: other" />
+        <item
+            android:id="@+id/nav_shopping"
+            android:title="Sort: shopping" />
+        <item
+            android:id="@+id/nav_tasks"
+            android:title="Sort: tasks" />
     </group>
+
     <item
         android:id="@+id/theme_switch_item"
         android:title="@string/theme_switch_title"
         app:actionViewClass="androidx.appcompat.widget.SwitchCompat" />
+
 </menu>

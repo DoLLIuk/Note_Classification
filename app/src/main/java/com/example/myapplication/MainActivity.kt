@@ -173,6 +173,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_all -> noteAdapter.filterByCategory(null)
+                R.id.nav_education -> noteAdapter.filterByCategory("education")
+                R.id.nav_finance -> noteAdapter.filterByCategory("finance")
+                R.id.nav_other -> noteAdapter.filterByCategory("other")
+                R.id.nav_shopping -> noteAdapter.filterByCategory("shopping")
+                R.id.nav_tasks -> noteAdapter.filterByCategory("tasks")
+            }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
